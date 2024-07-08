@@ -9,6 +9,7 @@ import com.api.itsec_test.repository.RoleRepository;
 import com.api.itsec_test.repository.UserRepository;
 import com.api.itsec_test.security.JwtGenerator;
 import com.api.itsec_test.service.SchemaSwitcherService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,10 @@ public class AuthController {
         this.schemaSwitcherService = schemaSwitcherService;
     }
 
+    @Operation(
+            summary = "Register User",
+            description = "User provides a unique username and password to create a new user account"
+    )
     @PostMapping("/{schema}/register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterDto registerDto,
                                            @PathVariable("schema") String schemaName){
@@ -67,6 +72,10 @@ public class AuthController {
         return new ResponseEntity<>("Register Success", HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "Register Admin",
+            description = "User provides a unique username and password to create a new user account with admin rights"
+    )
     @PostMapping("/{schema}/register/admin")
     public ResponseEntity<String> registerAdmin(@Valid @RequestBody RegisterDto registerDto,
                                                 @PathVariable("schema") String schemaName){
@@ -90,6 +99,10 @@ public class AuthController {
         return new ResponseEntity<>("Admin Register Success", HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "Login into user account",
+            description = "User provides their credentials and the API will return their access token"
+    )
     @PostMapping("/{schema}/login")
     public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody LoginDto loginDto,
                                                  @PathVariable("schema") String schemaName){

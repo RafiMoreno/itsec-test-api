@@ -44,7 +44,11 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/article").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/api/article/**").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/api/article/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers(
+                                        "/api/auth/**",
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**"
+                                ).permitAll()
                                 .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
